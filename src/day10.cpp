@@ -6,7 +6,7 @@ using namespace std;
 set<vector<int>> dests;
 int ans2 = 0;
 
-void bfs(int curr_ind, int start_ind, const vector<string>& map) {
+void dfs(int curr_ind, int start_ind, const vector<string>& map) {
     int row = curr_ind / map[0].size();
     int col = curr_ind % map[0].size();
     int curr_val = map[row][col] - '0';
@@ -16,13 +16,13 @@ void bfs(int curr_ind, int start_ind, const vector<string>& map) {
         return;
     }
     if (row > 0 && map[row-1][col] - '0' == curr_val + 1)
-        bfs(curr_ind - map[0].size(), start_ind, map);
+        dfs(curr_ind - map[0].size(), start_ind, map);
     if (row < map.size()-1 && map[row+1][col] - '0' == curr_val + 1) 
-        bfs(curr_ind + map[0].size(), start_ind, map);
+        dfs(curr_ind + map[0].size(), start_ind, map);
     if (col > 0 && map[row][col-1] - '0'== curr_val + 1) 
-        bfs(curr_ind - 1, start_ind, map);
+        dfs(curr_ind - 1, start_ind, map);
     if (col < map[0].size() && map[row][col+1] - '0' == curr_val + 1)
-        bfs(curr_ind + 1, start_ind, map);
+        dfs(curr_ind + 1, start_ind, map);
 }
 
 int main() {
@@ -36,7 +36,7 @@ int main() {
     for (int i=0; i<map.size(); i++) {
         for (int j=0; j<map[0].size(); j++) {
             if (map[i][j] == '0') {
-                bfs(i*map[0].size() + j, i*map[0].size() + j, map);
+                dfs(i*map[0].size() + j, i*map[0].size() + j, map);
             }
         }
     }
